@@ -1,11 +1,17 @@
 import Navbar from "@/components/Navbar";
+import { NAVBAR_HEIGHT } from "@/lib/constants";
 import React, { PropsWithChildren } from "react";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div>
+    <div className=" ">
       <Navbar />
-      <main className="h-full w-full flex flex-col pt-[52px">{children}</main>
+      <main
+        className=" flex flex-col"
+        style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}
+      >
+        {children}
+      </main>
     </div>
   );
 };
