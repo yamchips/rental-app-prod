@@ -37,6 +37,9 @@ const contents: { imageSrc: string; title: string; description: string }[] = [
   },
 ];
 
+const discoverySummary =
+  "Searching for your dream rental property has never been easier. With our user-friendly search feature, you can quickly find the perfect home that meets all your needs. Start your search today and discover your dream rental property!";
+
 const DiscoverSection = () => {
   return (
     <motion.div
@@ -55,10 +58,7 @@ const DiscoverSection = () => {
             Find Your Dream Rental Property Today!
           </p>
           <p className="mt-2 text-gray-500 max-w-3xl mx-auto">
-            Searching for your dream rental property has never been easier. With
-            our user-friendly search feature, you can quickly find the perfect
-            home that meets all your needs. Start your search today and discover
-            your dream rental property!
+            {discoverySummary}
           </p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 xl:gap-16 text-center">

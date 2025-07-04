@@ -1,7 +1,7 @@
-import React from "react";
-import HeroSection from "./HeroSection";
-import FeaturesSection from "./FeaturesSection";
+import CallToActionSection from "./CallToActionSection";
 import DiscoverSection from "./DiscoverSection";
+import FeaturesSection from "./FeaturesSection";
+import HeroSection from "./HeroSection";
 
 const Landing = () => {
   return (
@@ -9,6 +9,7 @@ const Landing = () => {
       <HeroSection />
       <FeaturesSection />
       <DiscoverSection />
+      <CallToActionSection />
     </div>
   );
 };
