@@ -1,6 +1,7 @@
+"use client";
 import Navbar from "@/components/Navbar";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
