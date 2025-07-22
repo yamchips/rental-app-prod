@@ -26,9 +26,9 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
             : "/tenants/favorites",
           { scroll: false }
         );
-      } else {
-        setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   }, [authUser, router, pathname]);
 
