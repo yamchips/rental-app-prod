@@ -265,8 +265,3 @@ export const createProperty = async (
       .json({ message: `Error creating property: ${error.message}` });
   }
 };
-
-export const updateProperty = async (
-  req: Request,
-  res: Response
-): Promise<void> => {};
