@@ -3,6 +3,7 @@ import { NAVBAR_HEIGHT } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useSearchParams } from "next/navigation";
 import FiltersBar from "./FiltersBar";
+import FiltersFull from "./FiltersFull";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ const SearchPage = () => {
               : "w-0 opacity-0 invisible"
           }`}
         >
-          {/* <FiltersFull /> */}
+          <FiltersFull />
         </div>
         {/* <Map /> */}
         <div className="basis-4/12 overflow-y-auto">{/* <Listing /> */}</div>
