@@ -4,6 +4,10 @@ import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useSearchParams } from "next/navigation";
 import FiltersBar from "./FiltersBar";
 import FiltersFull from "./FiltersFull";
+import { useEffect } from "react";
+import { cleanParams } from "@/lib/utils";
+import { allowedKeys, FiltersState, setFilters } from "@/state";
+import Map from "./Map";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -11,6 +15,33 @@ const SearchPage = () => {
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
+
+  useEffect(() => {
+    const initialFilters = Array.from(searchParams.entries()).reduce(
+      (acc: Partial<FiltersState>, [key, value]) => {
+        if (!allowedKeys.includes(key as keyof FiltersState)) return acc;
+        const typedKey = key as keyof FiltersState;
+        if (typedKey === "priceRange" || typedKey === "squareFeet") {
+          acc[typedKey] = value
+            .split(",")
+            .map((v) => (v === "" ? null : Number(v))) as
+            | [number, number]
+            | [null, null];
+        } else if (typedKey === "coordinates") {
+          acc[typedKey] = value.split(",").map(Number) as [number, number];
+        } else if (typedKey === "amenities") {
+          acc[typedKey] = value.split(",") as string[];
+        } else {
+          acc[typedKey] = (value === "any" ? null : value) as string;
+        }
+        return acc;
+      },
+      {}
+    );
+    const cleanedFilters = cleanParams(initialFilters);
+    dispatch(setFilters(cleanedFilters));
+  }, []);
+
   return (
     <div
       className="w-full mx-auto px-5 flex flex-col"
@@ -29,7 +60,7 @@ const SearchPage = () => {
         >
           <FiltersFull />
         </div>
-        {/* <Map /> */}
+        <Map />
         <div className="basis-4/12 overflow-y-auto">{/* <Listing /> */}</div>
       </div>
     </div>

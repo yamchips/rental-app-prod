@@ -112,7 +112,7 @@ export const getProperties = async (
           'postalCode', l."postalCode",
           'coordinates', json_build_object(
             'longitude', ST_X(l."coordinates"::geometry),
-            'latitude', ST_Y(l."coordinates"::geometry),
+            'latitude', ST_Y(l."coordinates"::geometry)
           )
         ) as location
         FROM "Property" p

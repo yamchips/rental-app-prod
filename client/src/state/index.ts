@@ -1,5 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export const allowedKeys: (keyof FiltersState)[] = [
+  "location",
+  "beds",
+  "baths",
+  "propertyType",
+  "amenities",
+  "availableFrom",
+  "priceRange",
+  "squareFeet",
+  "coordinates",
+];
+
 export interface FiltersState {
   location: string;
   beds: string;
