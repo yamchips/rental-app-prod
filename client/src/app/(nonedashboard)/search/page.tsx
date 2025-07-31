@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { cleanParams } from "@/lib/utils";
 import { allowedKeys, FiltersState, setFilters } from "@/state";
 import Map from "./Map";
+import Listings from "./Listings";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -61,7 +62,9 @@ const SearchPage = () => {
           <FiltersFull />
         </div>
         <Map />
-        <div className="basis-4/12 overflow-y-auto">{/* <Listing /> */}</div>
+        <div className="basis-4/12 overflow-y-auto">
+          <Listings />
+        </div>
       </div>
     </div>
   );

@@ -70,7 +70,29 @@ const FiltersBar = () => {
     updateURL(newFilters);
   };
 
-  const handleLocationSearch = async () => {};
+  const handleLocationSearch = async () => {
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          searchInput
+        )}.json?access_token=${
+          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+        }&fuzzyMatch=true`
+      );
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        const [lng, lat] = data.features[0].center;
+        dispatch(
+          setFilters({
+            location: searchInput,
+            coordinates: [lng, lat],
+          })
+        );
+      }
+    } catch (err) {
+      console.error("Error search location:", err);
+    }
+  };
   return (
     <div className="flex justify-between items-center w-full py-5">
       {/* Filters */}
