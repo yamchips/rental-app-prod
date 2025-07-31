@@ -1,5 +1,6 @@
 "use client";
 import AppSidebar from "@/components/AppSidebar";
+import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
@@ -32,7 +33,7 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
     }
   }, [authUser, router, pathname]);
 
-  if (authLoading || isLoading) return <>Loading...</>;
+  if (authLoading || isLoading) return <Loading />;
   if (!authUser?.userRole) return null;
 
   return (
