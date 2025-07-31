@@ -154,7 +154,7 @@ export const getProperty = async (
         ...property,
         location: {
           ...property.location,
-          coordiantes: {
+          coordinates: {
             longitude,
             latitude,
           },
