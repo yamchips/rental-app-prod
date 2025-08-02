@@ -18,7 +18,6 @@ const PropertyLocation = ({ propertyId }: PropertyDetailsProps) => {
 
   useEffect(() => {
     if (isLoading || isError || !property) return;
-    console.log("address is: ", property.location.address);
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       style: "mapbox://styles/yamchips/cmdn6oomy001c01pj0f826xe7",

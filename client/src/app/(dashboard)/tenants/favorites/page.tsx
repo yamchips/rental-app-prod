@@ -7,26 +7,27 @@ import {
   useGetPropertiesQuery,
   useGetTenantQuery,
 } from "@/state/api";
-import { Property } from "@/types/prismaTypes";
 
 const Favorites = () => {
   const { data: authUser } = useGetAuthUserQuery();
   const { data: tenant } = useGetTenantQuery(
     authUser?.cognitoInfo?.userId || "",
-    { skip: !authUser?.cognitoInfo?.userId }
+    {
+      skip: !authUser?.cognitoInfo?.userId,
+    }
   );
+
   const {
     data: favoriteProperties,
     isLoading,
     error,
   } = useGetPropertiesQuery(
-    { favoriteIds: tenant?.favorites?.map((fav: Property) => fav.id) },
+    { favoriteIds: tenant?.favorites?.map((fav: { id: number }) => fav.id) },
     { skip: !tenant?.favorites || tenant?.favorites.length === 0 }
   );
 
   if (isLoading) return <Loading />;
   if (error) return <div>Error loading favorites</div>;
-
   return (
     <div className="dashboard-container">
       <Header

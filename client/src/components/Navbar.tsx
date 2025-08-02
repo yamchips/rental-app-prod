@@ -136,7 +136,10 @@ const Navbar = () => {
                   <DropdownMenuItem
                     className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100"
                     onClick={() => {
-                      router.push(`settings`, { scroll: false });
+                      router.push(
+                        `/${authUser.userRole?.toLowerCase()}s/settings`,
+                        { scroll: false }
+                      );
                     }}
                   >
                     Go to Settings
