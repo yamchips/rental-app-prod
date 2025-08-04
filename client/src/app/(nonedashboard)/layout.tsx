@@ -20,6 +20,8 @@ const Layout = ({ children }: PropsWithChildren) => {
         (userRole === "manager" && pathname === "/")
       ) {
         router.push("/managers/properties", { scroll: false });
+      } else {
+        setIsLoading(false);
       }
     } else {
       setIsLoading(false);

@@ -114,7 +114,7 @@ export const createApplication = async (
           rent: property.pricePerMonth,
           deposit: property.securityDeposit,
           property: { connect: { id: propertyId } },
-          tenant: { connect: { id: tenantCognitoId } },
+          tenant: { connect: { cognitoId: tenantCognitoId } },
         },
       });
       // create application with lease
@@ -127,7 +127,7 @@ export const createApplication = async (
           phoneNumber,
           message,
           property: { connect: { id: propertyId } },
-          tenant: { connect: { id: tenantCognitoId } },
+          tenant: { connect: { cognitoId: tenantCognitoId } },
           lease: { connect: { id: lease.id } },
         },
         include: {
