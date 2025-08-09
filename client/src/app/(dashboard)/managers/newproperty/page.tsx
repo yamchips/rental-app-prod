@@ -1,6 +1,5 @@
 "use client";
-export const dynamic = "force-dynamic";
-import { CustomFormField } from "@/components/FormField";
+
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -9,6 +8,12 @@ import { useCreatePropertyMutation, useGetAuthUserQuery } from "@/state/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
+
+import dynamic from "next/dynamic";
+const CustomFormField = dynamic(
+  () => import("@/components/FormField").then((mod) => mod.CustomFormField),
+  { ssr: false }
+);
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();

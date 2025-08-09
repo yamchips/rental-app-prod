@@ -3,8 +3,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "./ui/form";
-import { CustomFormField } from "./FormField";
 import { Button } from "./ui/button";
+
+import dynamic from "next/dynamic";
+const CustomFormField = dynamic(
+  () => import("@/components/FormField").then((mod) => mod.CustomFormField),
+  { ssr: false }
+);
 
 const SettingsForm = ({
   initialData,
