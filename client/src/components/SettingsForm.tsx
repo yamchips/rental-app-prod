@@ -1,4 +1,3 @@
-"use client";
 import { SettingsFormData, settingsSchema } from "@/lib/schemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
