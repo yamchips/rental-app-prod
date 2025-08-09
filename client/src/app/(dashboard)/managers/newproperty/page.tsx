@@ -46,13 +46,11 @@ const NewProperty = () => {
 
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (key === "photoUrls") {
-        if (typeof window !== "undefined") {
-          const files = value as File[];
-          files.forEach((file: File) => {
-            formData.append("photos", file);
-          });
-        }
+      if (key === "photoUrls" && typeof window !== "undefined") {
+        const files = value as any[];
+        files.forEach((file) => {
+          formData.append("photos", file);
+        });
       } else if (Array.isArray(value)) {
         // which field is array?
         formData.append(key, JSON.stringify(value));
