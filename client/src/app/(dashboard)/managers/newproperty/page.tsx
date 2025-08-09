@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import { CustomFormField } from "@/components/FormField";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -47,10 +47,12 @@ const NewProperty = () => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (key === "photoUrls") {
-        const files = value as File[];
-        files.forEach((file: File) => {
-          formData.append("photos", file);
-        });
+        if (typeof window !== "undefined") {
+          const files = value as File[];
+          files.forEach((file: File) => {
+            formData.append("photos", file);
+          });
+        }
       } else if (Array.isArray(value)) {
         // which field is array?
         formData.append(key, JSON.stringify(value));
@@ -237,5 +239,3 @@ const NewProperty = () => {
 };
 
 export default NewProperty;
-
-export const dynamic = "force-dynamic";

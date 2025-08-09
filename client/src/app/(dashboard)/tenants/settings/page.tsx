@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 import Loading from "@/components/Loading";
 import SettingsForm from "@/components/SettingsForm";
 import {
@@ -33,5 +34,3 @@ const TenantSettings = () => {
 };
 
 export default TenantSettings;
-
-export const dynamic = "force-dynamic";
