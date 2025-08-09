@@ -33,3 +33,5 @@ const ManagerSettings = () => {
 };
 
 export default ManagerSettings;
+
+export const dynamic = "force-dynamic";

@@ -33,3 +33,5 @@ const TenantSettings = () => {
 };
 
 export default TenantSettings;
+
+export const dynamic = "force-dynamic";

@@ -237,3 +237,5 @@ const NewProperty = () => {
 };
 
 export default NewProperty;
+
+export const dynamic = "force-dynamic";
