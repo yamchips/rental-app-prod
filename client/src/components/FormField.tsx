@@ -77,11 +77,12 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
         import("react-filepond"),
         import("filepond-plugin-image-exif-orientation"),
         import("filepond-plugin-image-preview"),
+      ]).then(([fp, exif, preview]) => {
         import(
           "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        ),
-        import("filepond/dist/filepond.min.css"),
-      ]).then(([fp, exif, preview]) => {
+        );
+        import("filepond/dist/filepond.min.css");
+
         fp.registerPlugin(exif.default, preview.default);
         setFilePond(() => fp.FilePond);
       });
