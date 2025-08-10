@@ -9,11 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { PropertyFormData, propertySchema } from "@/lib/schemas";
 
-// import dynamic from "next/dynamic";
-// const CustomFormField = dynamic(
-//   () => import("@/components/FormField").then((mod) => mod.CustomFormField),
-//   { ssr: false }
-// );
+import dynamic from "next/dynamic";
+const CustomFormField = dynamic(
+  () => import("@/components/FormField").then((mod) => mod.CustomFormField),
+  { ssr: false }
+);
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
