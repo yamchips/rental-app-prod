@@ -1,6 +1,7 @@
 "use client";
 
 import Loading from "@/components/Loading";
+import SettingsForm from "@/components/SettingsForm";
 import {
   useGetAuthUserQuery,
   useUpdateTenantSettingsMutation,
@@ -23,7 +24,13 @@ const TenantSettings = () => {
       ...data,
     });
   };
-  return <div>Tenant settings form</div>;
+  return (
+    <SettingsForm
+      initialData={initialData}
+      onSubmit={handleSubmit}
+      userType="tenant"
+    />
+  );
 };
 
 export default TenantSettings;
