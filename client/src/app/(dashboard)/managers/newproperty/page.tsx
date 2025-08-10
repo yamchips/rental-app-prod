@@ -19,30 +19,30 @@ const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
   const { data: authUser } = useGetAuthUserQuery();
 
-  // const form = useForm<PropertyFormData>({
-  //   resolver: zodResolver(propertySchema),
-  //   defaultValues: {
-  //     name: "",
-  //     description: "",
-  //     pricePerMonth: 1000,
-  //     securityDeposit: 500,
-  //     applicationFee: 100,
-  //     isPetsAllowed: true,
-  //     isParkingIncluded: true,
-  //     photoUrls: [],
-  //     amenities: "",
-  //     highlights: "",
-  //     beds: 1,
-  //     baths: 1,
-  //     squareFeet: 1000,
-  //     // propertyType: ''
-  //     address: "",
-  //     city: "",
-  //     state: "",
-  //     country: "",
-  //     postalCode: "",
-  //   },
-  // });
+  const form = useForm<PropertyFormData>({
+    resolver: zodResolver(propertySchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      pricePerMonth: 1000,
+      securityDeposit: 500,
+      applicationFee: 100,
+      isPetsAllowed: true,
+      isParkingIncluded: true,
+      photoUrls: [],
+      amenities: "",
+      highlights: "",
+      beds: 1,
+      baths: 1,
+      squareFeet: 1000,
+      // propertyType: ''
+      address: "",
+      city: "",
+      state: "",
+      country: "",
+      postalCode: "",
+    },
+  });
 
   // const onSubmit = async (data: PropertyFormData) => {
   //   if (!authUser?.cognitoInfo?.userId) {
