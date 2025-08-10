@@ -9,11 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 
-import dynamic from "next/dynamic";
-const CustomFormField = dynamic(
-  () => import("@/components/FormField").then((mod) => mod.CustomFormField),
-  { ssr: false }
-);
+// import dynamic from "next/dynamic";
+// const CustomFormField = dynamic(
+//   () => import("@/components/FormField").then((mod) => mod.CustomFormField),
+//   { ssr: false }
+// );
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
