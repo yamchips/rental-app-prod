@@ -16,11 +16,6 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { registerPlugin } from "filepond";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import "filepond/dist/filepond.min.css";
 import { Edit, Plus, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import {
@@ -29,8 +24,6 @@ import {
   useFieldArray,
   useFormContext,
 } from "react-hook-form";
-
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 interface FormFieldProps {
   name: string;
@@ -80,8 +73,17 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
 
   useEffect(() => {
     if (type === "file") {
-      import("react-filepond").then((mod) => {
-        setFilePond(mod.FilePond);
+      Promise.all([
+        import("react-filepond"),
+        import("filepond-plugin-image-exif-orientation"),
+        import("filepond-plugin-image-preview"),
+        import(
+          "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        ),
+        import("filepond/dist/filepond.min.css"),
+      ]).then(([fp, exif, preview]) => {
+        fp.registerPlugin(exif.default, preview.default);
+        setFilePond(() => fp.FilePond);
       });
     }
   }, [type]);
