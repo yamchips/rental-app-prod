@@ -3,7 +3,7 @@
 import Header from "@/components/Header";
 import { useCreatePropertyMutation, useGetAuthUserQuery } from "@/state/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 // import { Form } from "@/components/ui/form";
