@@ -1,7 +1,12 @@
 "use client";
 
 import Loading from "@/components/Loading";
-import SettingsForm from "@/components/SettingsForm";
+import dynamic from "next/dynamic";
+
+const SettingsForm = dynamic(() => import("@/components/SettingsForm"), {
+  ssr: false,
+  loading: () => <div>Loading...</div>,
+});
 import {
   useGetAuthUserQuery,
   useUpdateTenantSettingsMutation,
