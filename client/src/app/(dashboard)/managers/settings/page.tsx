@@ -5,6 +5,11 @@ import {
   useGetAuthUserQuery,
   useUpdateManagerSettingsMutation,
 } from "@/state/api";
+import dynamic from "next/dynamic";
+
+const SettingsForm = dynamic(() => import("@/components/SettingsForm"), {
+  ssr: false,
+});
 
 const ManagerSettings = () => {
   const { data: authUser, isLoading } = useGetAuthUserQuery();
@@ -23,7 +28,13 @@ const ManagerSettings = () => {
       ...data,
     });
   };
-  return <div>Manager settings form</div>;
+  return (
+    <SettingsForm
+      initialData={initialData}
+      onSubmit={handleSubmit}
+      userType="manager"
+    />
+  );
 };
 
 export default ManagerSettings;

@@ -1,16 +1,14 @@
 "use client";
 
 import Loading from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const SettingsForm = dynamic(() => import("@/components/SettingsForm"), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-});
 import {
   useGetAuthUserQuery,
   useUpdateTenantSettingsMutation,
 } from "@/state/api";
+import dynamic from "next/dynamic";
+const SettingsForm = dynamic(() => import("@/components/SettingsForm"), {
+  ssr: false,
+});
 
 const TenantSettings = () => {
   const { data: authUser, isLoading } = useGetAuthUserQuery();
