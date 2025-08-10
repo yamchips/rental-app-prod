@@ -1,7 +1,6 @@
 "use client";
 
 import Loading from "@/components/Loading";
-import SettingsForm from "@/components/SettingsForm";
 import {
   useGetAuthUserQuery,
   useUpdateManagerSettingsMutation,
@@ -24,13 +23,7 @@ const ManagerSettings = () => {
       ...data,
     });
   };
-  return (
-    <SettingsForm
-      initialData={initialData}
-      onSubmit={handleSubmit}
-      userType="manager"
-    />
-  );
+  return <div>Manager settings form</div>;
 };
 
 export default ManagerSettings;
