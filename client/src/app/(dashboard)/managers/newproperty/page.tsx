@@ -44,28 +44,28 @@ const NewProperty = () => {
     },
   });
 
-  const onSubmit = async (data: PropertyFormData) => {
-    if (!authUser?.cognitoInfo?.userId) {
-      throw new Error("No manager ID found");
-    }
+  // const onSubmit = async (data: PropertyFormData) => {
+  //   if (!authUser?.cognitoInfo?.userId) {
+  //     throw new Error("No manager ID found");
+  //   }
 
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === "photoUrls" && typeof window !== "undefined") {
-        const files = value as any[];
-        files.forEach((file) => {
-          formData.append("photos", file);
-        });
-      } else if (Array.isArray(value)) {
-        // which field is array?
-        formData.append(key, JSON.stringify(value));
-      } else {
-        formData.append(key, String(value));
-      }
-    });
-    formData.append("managerCognitoId", authUser.cognitoInfo.userId);
-    await createProperty(formData);
-  };
+  //   const formData = new FormData();
+  //   Object.entries(data).forEach(([key, value]) => {
+  //     if (key === "photoUrls" && typeof window !== "undefined") {
+  //       const files = value as any[];
+  //       files.forEach((file) => {
+  //         formData.append("photos", file);
+  //       });
+  //     } else if (Array.isArray(value)) {
+  //       // which field is array?
+  //       formData.append(key, JSON.stringify(value));
+  //     } else {
+  //       formData.append(key, String(value));
+  //     }
+  //   });
+  //   formData.append("managerCognitoId", authUser.cognitoInfo.userId);
+  //   await createProperty(formData);
+  // };
   return (
     <div className="dashboard-container">
       <Header
