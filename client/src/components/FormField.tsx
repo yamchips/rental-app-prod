@@ -72,21 +72,34 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
   const [FilePond, setFilePond] = useState<any>(null);
 
   useEffect(() => {
-    if (type === "file") {
+    let mounted = true;
+    if (type === "file" && typeof window !== "undefined") {
+      // dynamically load JS modules and the CSS loader module
       Promise.all([
         import("react-filepond"),
         import("filepond-plugin-image-exif-orientation"),
         import("filepond-plugin-image-preview"),
-      ]).then(([fp, exif, preview]) => {
-        import(
-          "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        );
-        import("filepond/dist/filepond.min.css");
-
-        fp.registerPlugin(exif.default, preview.default);
-        setFilePond(() => fp.FilePond);
-      });
+        // dynamic import of the small TS file that imports CSS
+        import("./filepond-styles"),
+      ])
+        .then(([fp, exif, preview]) => {
+          if (!mounted) return;
+          // register plugins (support both default and named exports)
+          const exifMod = exif?.default ?? exif;
+          const previewMod = preview?.default ?? preview;
+          if (fp && typeof fp.registerPlugin === "function") {
+            fp.registerPlugin(exifMod, previewMod);
+          }
+          // FilePond component
+          setFilePond(() => fp.FilePond);
+        })
+        .catch((err) => {
+          console.warn("Failed to load FilePond client modules", err);
+        });
     }
+    return () => {
+      mounted = false;
+    };
   }, [type]);
 
   const renderFormControl = (
