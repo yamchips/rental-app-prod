@@ -1,13 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { PropertyFormData, propertySchema } from "@/lib/schemas";
 import { useCreatePropertyMutation, useGetAuthUserQuery } from "@/state/api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 
 // import dynamic from "next/dynamic";
 // const CustomFormField = dynamic(
@@ -19,30 +13,30 @@ const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
   const { data: authUser } = useGetAuthUserQuery();
 
-  const form = useForm<PropertyFormData>({
-    resolver: zodResolver(propertySchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      pricePerMonth: 1000,
-      securityDeposit: 500,
-      applicationFee: 100,
-      isPetsAllowed: true,
-      isParkingIncluded: true,
-      photoUrls: [],
-      amenities: "",
-      highlights: "",
-      beds: 1,
-      baths: 1,
-      squareFeet: 1000,
-      // propertyType: ''
-      address: "",
-      city: "",
-      state: "",
-      country: "",
-      postalCode: "",
-    },
-  });
+  // const form = useForm<PropertyFormData>({
+  //   resolver: zodResolver(propertySchema),
+  //   defaultValues: {
+  //     name: "",
+  //     description: "",
+  //     pricePerMonth: 1000,
+  //     securityDeposit: 500,
+  //     applicationFee: 100,
+  //     isPetsAllowed: true,
+  //     isParkingIncluded: true,
+  //     photoUrls: [],
+  //     amenities: "",
+  //     highlights: "",
+  //     beds: 1,
+  //     baths: 1,
+  //     squareFeet: 1000,
+  //     // propertyType: ''
+  //     address: "",
+  //     city: "",
+  //     state: "",
+  //     country: "",
+  //     postalCode: "",
+  //   },
+  // });
 
   // const onSubmit = async (data: PropertyFormData) => {
   //   if (!authUser?.cognitoInfo?.userId) {
