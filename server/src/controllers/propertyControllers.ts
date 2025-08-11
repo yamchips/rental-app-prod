@@ -5,9 +5,7 @@ import { wktToGeoJSON } from "@terraformer/wkt";
 import axios from "axios";
 import { Request, Response } from "express";
 
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
+const prisma = new PrismaClient();
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
