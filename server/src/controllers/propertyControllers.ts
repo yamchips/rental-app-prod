@@ -5,7 +5,9 @@ import { wktToGeoJSON } from "@terraformer/wkt";
 import axios from "axios";
 import { Request, Response } from "express";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
@@ -64,12 +66,15 @@ export const getProperties = async (
     }
     if (propertyType && propertyType !== "any") {
       whereConditions.push(
-        Prisma.sql`p."propertyType" = ${propertyType}::'PropertyType'`
+        Prisma.sql`p."propertyType" = ${propertyType}::"PropertyType"`
       );
     }
     if (amenities && amenities !== "any") {
       const amenitiesArray = (amenities as string).split(",");
-      whereConditions.push(Prisma.sql`p.amenities @> ${amenitiesArray}`);
+      const amenitiesLiteral = Prisma.sql`ARRAY[${Prisma.join(
+        amenitiesArray.map((a) => Prisma.sql`${a}`)
+      )}]::"Amenity"[]`;
+      whereConditions.push(Prisma.sql`p.amenities @> ${amenitiesLiteral}`);
     }
     if (availableFrom && availableFrom !== "any") {
       const availableFromDate =
@@ -81,7 +86,7 @@ export const getProperties = async (
             Prisma.sql`EXISTS (
               SELECT 1 FROM "Lease" l
               WHERE l."propertyId" = p.id
-              AND l."startDate" <= ${date.toISOString()}
+              AND l."startDate" <= ${date.toISOString()}::timestamp
             )`
           );
         }
