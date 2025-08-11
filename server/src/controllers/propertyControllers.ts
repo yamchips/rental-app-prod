@@ -231,7 +231,7 @@ export const createProperty = async (
     const newProperty = await prisma.property.create({
       data: {
         ...propertyData,
-        // photoUrls,
+        photoUrls,
         locationId: location.id,
         managerCognitoId,
         amenities:
