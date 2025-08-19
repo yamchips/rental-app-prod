@@ -10,17 +10,6 @@ const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
-export const uploadImage = async (file: any) => {
-  const params = {
-    Bucket: process.env.S3_BUCKET_NAME,
-    Key: file.originalname,
-    Body: file.buffer,
-    ContentType: file.mimetype,
-  };
-  await s3Client.send(new PutObjectCommand(params));
-  return `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.originalname}`;
-};
-
 export const getProperties = async (
   req: Request,
   res: Response
@@ -199,21 +188,20 @@ export const createProperty = async (
       managerCognitoId,
       ...propertyData
     } = req.body;
-    const photoUrls = await Promise.all(
-      files.map(async (file) => {
-        const uploadParams = {
-          Bucket: process.env.S3_BUCKET_NAME!,
-          Key: `properties/${Date.now()}-${file.originalname}`,
-          Body: file.buffer,
-          ContentType: file.mimetype,
-        };
-        const uploadResult = await new Upload({
-          client: s3Client,
-          params: uploadParams,
-        }).done();
-        return uploadResult.Location;
-      })
-    );
+    const photoUrls: string[] = [];
+    for (const file of files) {
+      const uploadParams = {
+        Bucket: process.env.S3_BUCKET_NAME!,
+        Key: `properties/${Date.now()}-${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      };
+      const uploadResult = await new Upload({
+        client: s3Client,
+        params: uploadParams,
+      }).done();
+      photoUrls.push(uploadResult.Location!);
+    }
     const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
       {
         street: address,
