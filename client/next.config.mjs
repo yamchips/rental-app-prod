@@ -9,7 +9,7 @@ const nextConfig = {
         },
         {
             protocol: 'https',
-            hostname: '*.amazonaws.com',
+            hostname: 'rental-s3-pictures.s3.eu-west-2.amazonaws.com',
             port: '',
             pathname: '/**'
         }]
