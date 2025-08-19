@@ -1,5 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { Location, Prisma, PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import axios from "axios";
@@ -190,17 +189,20 @@ export const createProperty = async (
     } = req.body;
     const photoUrls: string[] = [];
     for (const file of files) {
+      const key = `properties/${Date.now()}-${file.originalname}`;
       const uploadParams = {
         Bucket: process.env.S3_BUCKET_NAME!,
-        Key: `properties/${Date.now()}-${file.originalname}`,
+        Key: key,
         Body: file.buffer,
         ContentType: file.mimetype,
       };
-      const uploadResult = await new Upload({
-        client: s3Client,
-        params: uploadParams,
-      }).done();
-      photoUrls.push(uploadResult.Location!);
+      try {
+        await s3Client.send(new PutObjectCommand(uploadParams));
+        const fileUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+        photoUrls.push(fileUrl);
+      } catch (err) {
+        console.error(`Failed to upload ${file.originalname}:`, err);
+      }
     }
     const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
       {
