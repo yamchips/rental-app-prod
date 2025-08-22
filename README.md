@@ -18,16 +18,25 @@ Email: wflunch+test2@gmail.com
 
 Password: Password123!
 
+## Improvements
+
+- Enhanced AWS S3 Integration – Configured S3 by attaching an IAM role to the EC2 instance and enabling binary media types in API Gateway for seamless file uploads
+- Optimized Client-Side Rendering – Used dynamic imports for the tenant/manager settings form to resolve the File is not defined error in AWS Amplify
+- Modularized Form Handling – Created a dedicated new property form component and dynamically imported it to prevent File is not defined errors in AWS Amplify
+- Stronger Type Safety – Added explicit type casting for amenities and available date fields in the full filters component to prevent server-side errors
+
 ## Features
 
-Anyone can visit home page and search properties with filters (price, bedrooms, bathrooms, area, amenities, available date, location). View detailed property pages with photo gallery and interactive map
+Anyone can visit home page and search properties with filters (price, bedrooms, bathrooms, area, amenities, available date, location). View detailed property pages with photo gallery and interactive map.
+
+Template properties are located in **Los Angeles**.
 
 After sign up and sign in, a user can either visit the website as a tenant or manager.
 
 ### Tenant Features
 
 - Add a property as favorite and remove favorites
-- Apply online and communicate with managers
+- Submit an application for a property
 - Manage current and past residences
 - Modify user name, email and phone number
 
@@ -153,6 +162,7 @@ Run `npm run dev` in client and server folder.
 
 ### Technical
 
+- Improve property's picture format in the single property page
 - Improve loading and error skeleton
 - Guarantee only one prisma client is created
 
