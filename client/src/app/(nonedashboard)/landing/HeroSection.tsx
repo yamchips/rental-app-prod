@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("Los Angeles");
   const router = useRouter();
 
   const handleLocationSearch = async () => {
