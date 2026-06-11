@@ -1,8 +1,8 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
+import prisma from "./prisma";
 import fs from "fs";
 import path from "path";
 
-const prisma = new PrismaClient();
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));

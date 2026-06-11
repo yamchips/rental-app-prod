@@ -24,6 +24,7 @@ Password: Password123!
 - Optimized Client-Side Rendering – Used dynamic imports for the tenant/manager settings form to resolve the File is not defined error in AWS Amplify
 - Modularized Form Handling – Created a dedicated new property form component and dynamically imported it to prevent File is not defined errors in AWS Amplify
 - Stronger Type Safety – Added explicit type casting for amenities and available date fields in the full filters component to prevent server-side errors
+- Centralized Prisma Client Management – Reused a single shared Prisma client instance across the backend to avoid duplicate database connections
 
 ## Features
 
@@ -164,7 +165,6 @@ Run `npm run dev` in client and server folder.
 
 - Improve property's picture format in the single property page
 - Improve loading and error skeleton
-- Guarantee only one prisma client is created
 
 ### Feature Enhancements
 

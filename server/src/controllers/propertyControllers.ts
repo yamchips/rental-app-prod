@@ -1,10 +1,10 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { Location, Prisma, PrismaClient } from "@prisma/client";
+import { Location, Prisma } from "@prisma/client";
+import prisma from "../../prisma/prisma";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import axios from "axios";
 import { Request, Response } from "express";
 
-const prisma = new PrismaClient();
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
