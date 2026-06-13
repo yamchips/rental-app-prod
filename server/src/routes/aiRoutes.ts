@@ -1,8 +1,8 @@
 import express from "express"
-import { testAIResponse } from "../controllers/aiControllers";
+import { getAiAdvise } from "../controllers/aiControllers";
 
 const router = express.Router();
 
-router.post("/test", testAIResponse);
+router.post("/property-advisor", getAiAdvise);
 
 export default router;
