@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const propertySearchSchema = z.object({
-  favoriteId: z
+  favoriteIds: z
     .string()
     .optional()
     .transform((value) => value?.split(",").map(Number)),

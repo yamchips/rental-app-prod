@@ -1,5 +1,5 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { Location } from "@prisma/client";
+import { Location, Property } from "@prisma/client";
 import prisma from "../../prisma/prisma";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import axios from "axios";

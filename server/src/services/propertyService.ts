@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Property } from "@prisma/client";
 import prisma from "../../prisma/prisma";
 
 export type PropertySearchFilters = {
@@ -17,6 +17,21 @@ export type PropertySearchFilters = {
   limit?: number;
 };
 
+export type PropertyWithLocation = Property & {
+  location: {
+    id: number;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    postalCode: string;
+    coordinates: {
+      longitude: number;
+      latitude: number;
+    };
+  };
+};
+
 export const getPropertiesByFilters = async ({
   favoriteIds,
   priceMin,
@@ -31,7 +46,7 @@ export const getPropertiesByFilters = async ({
   latitude,
   longitude,
   limit,
-}: PropertySearchFilters) => {
+}: PropertySearchFilters): Promise<PropertyWithLocation[]> => {
   const whereConditions: Prisma.Sql[] = [];
   if (favoriteIds) {
     whereConditions.push(Prisma.sql`p.id IN (${Prisma.join(favoriteIds)})`);
@@ -120,5 +135,5 @@ export const getPropertiesByFilters = async ({
         }
         ${limit ? Prisma.sql`LIMIT ${limit}` : Prisma.empty}
     `;
-  return prisma.$queryRaw(completeQuery);
+  return prisma.$queryRaw<PropertyWithLocation[]>(completeQuery);
 };
