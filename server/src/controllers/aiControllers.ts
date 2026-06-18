@@ -4,6 +4,7 @@ import baseInstructions from "../llm/prompts/define-bot";
 import z from "zod";
 import { propertySearchSchema } from "../schemas/propertySearchSchema";
 import { getPropertiesByFilters } from "../services/propertyService";
+import { zodTextFormat } from "openai/helpers/zod.mjs";
 
 const conversations = new Map<string, string>();
 
@@ -14,6 +15,17 @@ const chatSchema = z.object({
     .min(1, "Prompt is required")
     .max(1000, "Prompt is too long (max 1000 characters)"),
   conversationId: z.uuid(),
+});
+
+const advisorResponseSchema = z.object({
+  message: z.string(),
+  recommendations: z.array(
+    z.object({
+      propertyId: z.number().int().positive(),
+      reason: z.string(),
+      tradeOff: z.string(),
+    }),
+  ),
 });
 
 export const getAiAdvise = async (req: Request, res: Response) => {
@@ -79,15 +91,45 @@ export const getAiAdvise = async (req: Request, res: Response) => {
     `;
 
     // send request to LLM
-    const response = await openaiClient.responses.create({
+    const response = await openaiClient.responses.parse({
       model: "gpt-5.4-mini",
       instructions: baseInstructions,
       input: llmInput,
-      max_output_tokens: 300,
+      max_output_tokens: 700,
       previous_response_id: conversations.get(conversationId),
+      text: {
+        format: zodTextFormat(
+          advisorResponseSchema,
+          "property_advisor_response",
+        ),
+      },
     });
+
     conversations.set(conversationId, response.id);
-    res.json({ message: response.output_text });
+
+    const aiResult = response.output_parsed;
+    if (!aiResult) {
+      res.status(500).json({ error: "Failed to parse AI response." });
+      return;
+    }
+    const propertyById = new Map(
+      propertiesInfo.map((property) => [property.id, property]),
+    );
+    const recommendedProperties = aiResult.recommendations
+      .map((recommendation) => {
+        const property = propertyById.get(recommendation.propertyId);
+        if (!property) return null;
+        return {
+          id: property.id,
+          name: property.name,
+          link: property.link,
+          reason: recommendation.reason,
+          tradeOff: recommendation.tradeOff,
+        };
+      })
+      .filter(Boolean);
+
+    res.json({ message: aiResult.message, properties: recommendedProperties });
   } catch (error) {
     res.status(500).json({ error: "Failed to generate a response." });
   }
