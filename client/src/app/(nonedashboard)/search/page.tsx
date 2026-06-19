@@ -9,12 +9,13 @@ import { cleanParams } from "@/lib/utils";
 import { allowedKeys, FiltersState, setFilters } from "@/state";
 import Map from "./Map";
 import Listings from "./Listings";
+import AiPropertyAdvisor from "./AiPropertyAdvisor";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
   const isFiltersFullOpen = useAppSelector(
-    (state) => state.global.isFiltersFullOpen
+    (state) => state.global.isFiltersFullOpen,
   );
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const SearchPage = () => {
         }
         return acc;
       },
-      {}
+      {},
     );
     const cleanedFilters = cleanParams(initialFilters);
     dispatch(setFilters(cleanedFilters));
@@ -66,6 +67,7 @@ const SearchPage = () => {
           <Listings />
         </div>
       </div>
+      <AiPropertyAdvisor />
     </div>
   );
 };
