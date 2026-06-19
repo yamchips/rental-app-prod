@@ -20,6 +20,7 @@ Password: Password123!
 
 ## Improvements
 
+- AI Property Advisor – Added a floating AI assistant on the property search page that answers user questions based on the current filtered search results, using OpenAI, structured responses, and backend-side property re-fetching to avoid recommending properties outside the active search context
 - Enhanced AWS S3 Integration – Configured S3 by attaching an IAM role to the EC2 instance and enabling binary media types in API Gateway for seamless file uploads
 - Optimized Client-Side Rendering – Used dynamic imports for the tenant/manager settings form to resolve the File is not defined error in AWS Amplify
 - Modularized Form Handling – Created a dedicated new property form component and dynamically imported it to prevent File is not defined errors in AWS Amplify
@@ -29,6 +30,8 @@ Password: Password123!
 ## Features
 
 Anyone can visit home page and search properties with filters (price, bedrooms, bathrooms, area, amenities, available date, location). View detailed property pages with photo gallery and interactive map.
+
+Anyone can visit the home page and search properties with filters (price, bedrooms, bathrooms, area, amenities, available date, location). Users can also use the AI Property Advisor on the search page to compare current search results, ask for recommendations, and open suggested property detail pages.
 
 Template properties are located in **Los Angeles**.
 
@@ -61,6 +64,10 @@ This project is structured with **separate frontend and backend deployments** fo
 ### **Backend**
 
 - **Node.js + Express** REST API
+- AI recommendation endpoint with OpenAI integration
+- Zod-based validation for AI prompts and property search filters
+- Reusable property search service for both standard listing queries and AI-assisted recommendations
+- Guardrails to answer only from the current filtered property dataset
 - **Prisma ORM** for database access
 - **PostgreSQL + PostGIS** for geospatial queries
 - Advanced filtering with SQL array and geospatial operators
@@ -85,12 +92,13 @@ This project is structured with **separate frontend and backend deployments** fo
 
 ## Tech Stack
 
-| Category         | Technologies                                        |
-| ---------------- | --------------------------------------------------- |
-| **Frontend**     | Next.js, React, TypeScript, Tailwind CSS, Shadcn UI |
-| **Backend**      | Node.js, Express, Prisma, PostgreSQL, PostGIS       |
-| **Cloud/DevOps** | AWS Amplify, AWS EC2, AWS S3, PM2, AWS Cognito      |
-| **Other Tools**  | Git, Multer, Axios                                  |
+| Category         | Technologies                                            |
+| ---------------- | ------------------------------------------------------- |
+| **Frontend**     | Next.js, React, TypeScript, Tailwind CSS, Shadcn UI     |
+| **Backend**      | Node.js, Express, Prisma, PostgreSQL, PostGIS, Zod      |
+| **AI**           | OpenAI API, structured LLM responses, prompt guardrails |
+| **Cloud/DevOps** | AWS Amplify, AWS EC2, AWS S3, PM2, AWS Cognito          |
+| **Other Tools**  | Git, Multer, Axios                                      |
 
 ## Getting started
 
@@ -119,6 +127,7 @@ Environment variables in backend:
 - DATABASE_URL
 - S3_BUCKET_NAME
 - AWS_REGION
+- OPENAI_API_KEY
 
 ### 3. Start frontend and backend
 
