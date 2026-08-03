@@ -16,6 +16,8 @@ A full-stack rental application for property listings, search, and tenant/manage
 
 Click the image above to watch the full product demonstration.
 
+> **Deployment status:** The application was previously deployed on AWS using Amplify, EC2, RDS, S3, and API Gateway. The public environment has been retired to avoid ongoing infrastructure costs; the source code, screenshots, and recorded demo remain available.
+
 ## Improvements
 
 - AI Property Advisor – Added a floating AI assistant on the property search page that answers user questions based on the current filtered search results, using OpenAI, structured responses, and backend-side property re-fetching to avoid recommending properties outside the active search context
