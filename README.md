@@ -1,4 +1,4 @@
-# [Rental App](https://main.d20fthmjv9pfc3.amplifyapp.com/)
+# Rental App
 
 ## Overview
 
@@ -6,17 +6,15 @@ A full-stack rental application for property listings, search, and tenant/manage
 
 ## Demo
 
-**Test Tenant Login**
+<a href="https://youtu.be/YXrkZBuAjOc">
+  <img
+    src="./client/public/Landing-Page.png"
+    alt="Watch the rental app demo"
+    width="800"
+  />
+</a>
 
-Email: wflunch+test1@gmail.com
-
-Password: Password123!
-
-**Test Manager Login**
-
-Email: wflunch+test2@gmail.com
-
-Password: Password123!
+Click the image above to watch the full product demonstration.
 
 ## Improvements
 
@@ -28,6 +26,15 @@ Password: Password123!
 - Centralized Prisma Client Management – Reused a single shared Prisma client instance across the backend to avoid duplicate database connections
 
 ## Features
+
+<table>
+    <tr>
+        <td align="center">
+            <img src="./client/public/AWS.jpeg" alt="Landing Page" width="400" height="600"/><br/>
+            AWS Structure
+        </td>
+    </tr>
+</table>
 
 Anyone can visit home page and search properties with filters (price, bedrooms, bathrooms, area, amenities, available date, location). View detailed property pages with photo gallery and interactive map.
 
@@ -80,15 +87,6 @@ This project is structured with **separate frontend and backend deployments** fo
 - AWS EC2 for backend hosting with PM2 process manager
 - AWS RDS PostgreSQL for production database
 - AWS S3 for media storage and retrieval
-
-<table>
-    <tr>
-        <td align="center">
-            <img src="./client/public/AWS.jpeg" alt="Landing Page" width="400" height="600"/><br/>
-            AWS Structure
-        </td>
-    </tr>
-</table>
 
 ## Tech Stack
 
